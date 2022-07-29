@@ -1,0 +1,191 @@
+<!doctype html>
+
+<head>
+    <title>Bookmate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <style>
+        .card {
+            width: 350px;
+            background-color: #efefef;
+            border: none;
+            cursor: pointer;
+            transition: all 0.5s
+        }
+
+        .image img {
+            transition: all 0.5s
+        }
+
+        .card:hover .image img {
+            transform: scale(1.5)
+        }
+
+        .btn {
+            height: 140px;
+            width: 140px;
+            border-radius: 50%
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: bold
+        }
+
+        .idd {
+            font-size: 14px;
+            font-weight: 600
+        }
+
+        .idd1 {
+            font-size: 12px
+        }
+
+        .number {
+            font-size: 22px;
+            font-weight: bold
+        }
+
+        .follow {
+            font-size: 12px;
+            font-weight: 500;
+            color: #444444
+        }
+
+        .btn1 {
+            height: 40px;
+            width: 150px;
+            border: none;
+            background-color: #000;
+            color: #aeaeae;
+            font-size: 15px
+        }
+
+        .text span {
+            font-size: 13px;
+            color: #545454;
+            font-weight: 500
+        }
+
+        .icons i {
+            font-size: 19px
+        }
+
+        hr .new1 {
+            border: 1px solid
+        }
+
+        .join {
+            font-size: 14px;
+            color: #a0a0a0;
+            font-weight: bold
+        }
+
+        .date {
+            background-color: #ccc
+        }
+        body {
+    box-sizing: border-box;
+}
+.img-masonry {
+    height: auto;
+    max-width: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/ Main CSS */
+.grid-wrapper > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid-wrapper > div > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.grid-wrapper {
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
+}
+.grid-wrapper .wide {
+    grid-column: span 2;
+}
+.grid-wrapper .tall {
+    grid-row: span 2;
+}
+.grid-wrapper .big {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+                        <div class="card p-4">
+
+                            <div class=" image d-flex flex-column justify-content-center align-items-center"> <button
+                                    class="btn btn-secondary"> <img src="https://i.imgur.com/wvxPV9S.png" height="100"
+                                        width="100" /></button> <span class="name mt-3">{{ request.user.username }}</span> <span
+                                    class="idd">{{ request.user.email }}</span>
+                                <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span
+                                        class="idd1">{{ request.user.phone_no }}</span> <span><i class="fa fa-copy"></i></span>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span
+                                        class="number">{{ request.user.city}} <span class="follow"></span></span> </div>
+                                <div class=" d-flex mt-2">  <a href="{% url 'updateuser' request.user.id %}"><button class="btn1 btn-dark">Edit Profile</button></a></div>
+                                <div class=" d-flex mt-2">  <a href="{% url 'book_create' %}"><button class="btn1 btn-dark">Add Book</button></a></div>
+                                <div class=" d-flex mt-2">  <a href="{% url 'requested_book_list' request.user.id %}"><button class="btn1 btn-dark">Requested Book</button></a></div>
+                                <div class=" d-flex mt-2">  <a href="{% url 'notification' request.user.id %}"><button class="btn1 btn-dark">Notificaton</button></a></div>
+                                <div class=" d-flex mt-2">  <a href="{% url 'logout'  %}"><button class="btn1 btn-dark">Logout</button></a></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col text-center mt-4 mb-4 p-3">
+
+                            <h1 style="color: indigo;">BOOKMATE</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for object in object_list %}
+                    <div class="col-md-4 my-3">
+                        {% if object.image %}
+                        <a href="{% url 'book_detail' object.id %}" ><img  class="img-masonry shadow animate__animated animate__fadeInUp " src="{{ object.image.url }} " style="height: 450px;" ></a>
+                        {% endif %}
+
+                    </div>
+                    {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+
+</html>

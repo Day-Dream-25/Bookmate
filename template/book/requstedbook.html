@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<body>
+
+    <form action="" method="post" id="frm" >
+        {% csrf_token %}
+        {{ form.as_p }}
+
+
+        <h3>requested book : </h3>
+
+        <br/>
+
+        <table id="example" class="table table-striped table-dark" style="width:100%">
+
+    <thead>
+    <tr>
+
+        <th scope="col"> Book name</th>
+        <th scope="col"> requsted person name</th>
+        <th scope="col"> accept</th>
+        <th scope="col"> decline</th>
+
+    </tr>
+
+    </thead>
+        <tbody>
+        <tr>
+        {% for object in request_books %}
+
+        <th>{{ object.book_name.name }}</th>
+        <th>{{ request.user.id}}</th>
+
+              <th> <button type="button"  id="submit" class="btn btn-primary">confirm
+        </button></a></th>
+
+
+         <th>
+        <a href="{% url 'requested_book_delete' object.id %}"><button type="button" class="btn btn-danger" >
+            delete </button> </a>
+        </th>
+
+        </tr>
+        </tbody>
+                     {% endfor %}
+
+        </table>
+    </form>
+</body>
+</html>
+
+{%endblock content%}
+
+{% block js_content %}
+
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+  {% endblock js_content %}
+

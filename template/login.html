@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container pt-3 bg-light px-5">
+    <div class="row">
+
+    <div class="col">
+    <form action="" method="post" align="center">
+
+        {% csrf_token %}
+        <h1 style="background-color: antiquewhite; " class="text-center text-black " ><b>Login Page  </b></h1>
+
+        <br/>
+
+        <div class="form-row d-flex justify-content-center text-center">
+            <div class="form-group col-md-5 mb-0  ">
+                {{ form.username|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row d-flex justify-content-center text-center">
+            <div class="form-group col-md-5 mb-0">
+                {{ form.password|as_crispy_field }}
+            </div>
+        </div>
+
+         <br/>
+        <button class="btn btn-primary" type="submit">submit</button>
+        <br/>
+
+    </form>
+    </div>
+    </div>
+
+
+
+{% endblock content %}
+    </div>
+</div>
